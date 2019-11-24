@@ -37,7 +37,7 @@ module controller(
     ,out_chan_idx       				// output channel index: 0~3
     ,out_ifm_idx           				// output neuron index: 0~15
     );
-parameter 	in_size = 4;
+parameter 	in_size = 4;				//image feature map size: 4*4
 parameter 	out_size = 2;
 parameter 	in_channel = 1;
 parameter  	out_channel = 1;
@@ -45,10 +45,10 @@ parameter  	k = 3;						//weight matrix size: 3*3
 parameter 	padding = 0;				//padding size
 parameter 	stride = 0;
 input 		clock;
-input 		[3:0] r;
-input 		[3:0] c;
-input 		[3:0] i;
-input 		[3:0] j;
+input 		[3:0] r;					//output iterator row
+input 		[3:0] c;					//output iterator column
+input 		[3:0] i;					//weight iterator row
+input 		[3:0] j;					//weight iterator column
 output 		[7:0] ifm_addr;				//image feature map address
 output 		[7:0] weight_addr;			//weight address
 output 		[7:0] out_addr;
