@@ -33,47 +33,47 @@ module controller(
     ,input_ena
     ,out_ena
     ,wea
-    ,out_wea             // output buf write enable
-    ,out_chan_idx       // output channel index: 0~3
-    ,out_ifm_idx           // output neuron index: 0~15
+    ,out_wea             				// output buf write enable
+    ,out_chan_idx       				// output channel index: 0~3
+    ,out_ifm_idx           				// output neuron index: 0~15
     );
-parameter in_size = 4;
-parameter out_size = 2;
-parameter  in_channel = 1;
-parameter  out_channel = 1;
-parameter  k = 3;
-parameter padding = 0;
-parameter stride = 0;
-input clock;
-input [3:0] r;
-input [3:0] c;
-input [3:0] i;
-input [3:0] j;
-output [7:0] ifm_addr;
-output [7:0] weight_addr;
-output [7:0] out_addr;
-output weight_ena = 1;
-output input_ena = 1;
-output out_ena = 1;
-output wea;
-output [7:0] out_wea;
-output [1:0] out_chan_idx;
-output [3:0] out_ifm_idx;
+parameter 	in_size = 4;
+parameter 	out_size = 2;
+parameter 	in_channel = 1;
+parameter  	out_channel = 1;
+parameter  	k = 3;						//weight matrix size: 3*3
+parameter 	padding = 0;				//padding size
+parameter 	stride = 0;
+input 		clock;
+input 		[3:0] r;
+input 		[3:0] c;
+input 		[3:0] i;
+input 		[3:0] j;
+output 		[7:0] ifm_addr;				//image feature map address
+output 		[7:0] weight_addr;			//weight address
+output 		[7:0] out_addr;
+output 		weight_ena = 1;
+output 		input_ena = 1;
+output 		out_ena = 1;
+output 		wea;
+output 		[7:0] out_wea;
+output 		[1:0] out_chan_idx;
+output 		[3:0] out_ifm_idx;
 
-reg [7:0] ifm_addr = 0;
-reg [7:0] weight_addr = 0;
-wire [7:0] out_addr;
-wire [3:0] out_ifm_idx;
+reg 		[7:0] ifm_addr = 0;
+reg 		[7:0] weight_addr = 0;
+wire 		[7:0] out_addr;
+wire 		[3:0] out_ifm_idx;
 
-reg weight_ena;
-reg input_ena;
-reg out_ena;
+reg			weight_ena;
+reg			input_ena;
+reg 		out_ena;
 
-reg wea = 0;
-reg [7:0] out_wea = 1;
-reg [3:0] out_chan_idx = 0;  // temporary set as first channel
+reg 		wea = 0;
+reg 		[7:0] out_wea = 1;
+reg 		[3:0] out_chan_idx = 0;  // temporary set as first channel
 
-reg [7:0] out_addr_i; 
+reg 		[7:0] out_addr_i; 
 
 always@(posedge clock) begin
     ifm_addr <= (r+i)*in_size+(c+j);
