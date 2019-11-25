@@ -96,13 +96,13 @@ module loop(
     ,c
     ,i
     ,j
-    ,ready);
+    ,cell_ready);
 input clk;
 output [3:0] r;
 output [3:0] c;
 output [3:0] i;
 output [3:0] j;
-output ready;   // finish signal
+output cell_ready;   // finish signal
 wire carry1;
 wire carry2;
 wire carry3;
@@ -122,5 +122,5 @@ loop_counter3 l3(
 loop_counter4 l4(
     .carry_in(carry3),
     .i(i),
-    .carry_out(ready));
+    .carry_out(cell_ready));
 endmodule

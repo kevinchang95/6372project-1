@@ -51,17 +51,19 @@ wire [63:0] weight_dout;
 wire [15:0] ifm_0, ifm_1,ifm_2,ifm_3;
 wire [15:0] w_0, w_1,w_2,w_3;
 //wire [15:0] dout_0,dout_1,dout_2,dout_3;
+
 wire [3:0] sel;
-wire ready;   // suspended wire, any problem?
+wire cell_ready;   
 wire [63:0] psum_pkd;
 wire [63:0] dout; // suspended wire, any problem?
+
 loop address(
     .clk(clk),
     .r(rr),
     .c(cc),
     .i(ii),
     .j(jj),
-    .ready(ready)
+    .cell_ready(cell_ready)
     );
 controller ctl(
     .clock(clk),
@@ -77,7 +79,8 @@ controller ctl(
     .out_ena(o_ena),
     .wea(wea),
     .out_wea(out_wea),
-    .out_chan_idx(sel));
+    .out_chan_idx(sel),
+    .cell_ready(cell_ready));
     
 blk_mem_input ifm_buf (
   .clka(clk),    // input wire clka
@@ -110,7 +113,7 @@ assign w_3 = weight_dout[15:0];
 //assign dout_2 = dout[31:16];
 //assign dout_3 = dout[15:0];
     
-pe inst(
+mac inst(
     .clk(clk),
     .ifm_0(ifm_0),
     .ifm_1(ifm_1),
