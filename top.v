@@ -46,8 +46,8 @@ wire in_ena;
 wire o_ena;
 wire wea;
 wire [7:0] out_wea;
-wire [63:0] ifm_dout;
-wire [63:0] weight_dout;
+wire [63:0] ifm_dout;							//These are neightbor data in middle layers, 
+wire [63:0] weight_dout;						//doesn't have any significance, just random values.
 wire [15:0] ifm_0, ifm_1,ifm_2,ifm_3;
 wire [15:0] w_0, w_1,w_2,w_3;
 //wire [15:0] dout_0,dout_1,dout_2,dout_3;
