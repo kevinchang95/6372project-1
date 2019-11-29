@@ -33,6 +33,7 @@ module controller(
     ,input_ena
     ,out_ena
     ,wea
+<<<<<<< HEAD
     ,out_wea             				// output buf write enable
     ,out_chan_idx       				// output channel index: 0~3
     ,out_ifm_idx           				// output neuron index: 0~15
@@ -64,6 +65,41 @@ reg 		[7:0] ifm_addr = 0;
 reg 		[7:0] weight_addr = 0;
 wire 		[7:0] out_addr;
 wire 		[3:0] out_ifm_idx;
+=======
+    ,out_wea             // output buf write enable
+    ,out_chan_idx       // output channel index: 0~3
+    ,out_reg_idx        // output neuron index: 0~15
+    ,cell_ready           // the value in 16 registers is ready to go into output buffer
+    );
+parameter in_size = 4;
+parameter out_size = 2;
+parameter  in_channel = 1;
+parameter  out_channel = 1;
+parameter  k = 3;
+parameter padding = 0;
+parameter stride = 0;
+input clock;
+input [3:0] r;
+input [3:0] c;
+input [3:0] i;
+input [3:0] j;
+output [7:0] ifm_addr;
+output [7:0] weight_addr;
+output [7:0] out_addr;
+output weight_ena = 1;
+output input_ena = 1;
+output out_ena = 1;
+output wea;
+output [7:0] out_wea;
+output [1:0] out_chan_idx;
+output [3:0] out_reg_idx;
+output cell_ready;
+
+reg [7:0] ifm_addr = 0;
+reg [7:0] weight_addr = 0;
+wire [7:0] out_addr;
+wire [3:0] out_reg_idx;
+>>>>>>> master
 
 reg			weight_ena;
 reg			input_ena;
@@ -89,7 +125,7 @@ shift_reg out_addr_delay(
 shift_reg out_reg_delay(
     .clk(clock),
     .in(out_addr_i),
-    .out(out_ifm_idx));
+    .out(out_reg_idx));
         
 endmodule
 
