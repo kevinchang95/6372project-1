@@ -83,21 +83,23 @@ controller ctl(
     .cell_ready(cell_ready));
     
 blk_mem_input ifm_buf (
-  .clka(clk),    // input wire clka
-  .ena(in_ena),      // input wire ena
-  .wea(wea),      // input wire [0 : 0] wea
-  .addra(ifm_addr),  // input wire [7 : 0] addra
-  .dina(dina),    // input wire [63 : 0] dina
-  .douta(ifm_dout)  // output wire [63 : 0] douta
+  .clka(clk),    								// input wire: clock
+  .ena(in_ena),      							// input wire: total enable
+  .wea(wea),      								// input wire: [0 : 0] write enable
+  .addra(ifm_addr),  							// input wire: [7 : 0] image feature map address
+  .dina(dina),   								// input wire: [63 : 0] write value,useless(don't need to write,wea always 0!)
+  .douta(ifm_dout)  							// output wire: [63 : 0]  read value(image feature map value)
 );
+
 blk_mem_weight weight_buf (
-  .clka(clk),    // input wire clka
-  .ena(w_ena),      // input wire ena
-  .wea(wea),      // input wire [0 : 0] wea
-  .addra(weight_addr),  // input wire [7 : 0] addra
-  .dina(dina),    // input wire [63 : 0] dina
-  .douta(weight_dout)  // output wire [63 : 0] douta
+  .clka(clk),    								// input wire: clock
+  .ena(w_ena),      							// input wire: total enable
+  .wea(wea),      								// input wire: [0 : 0] write enable
+  .addra(weight_addr),  						// input wire: [7 : 0] weight address 
+  .dina(dina),    								// input wire: [63 : 0] write value,useless(don't need to write, wea always 0!)
+  .douta(weight_dout)  							// output wire: [63 : 0] read value(weight value)
 );
+
 assign ifm_0 = ifm_dout[63:48];
 assign ifm_1 = ifm_dout[47:32];
 assign ifm_2 = ifm_dout[31:16];
